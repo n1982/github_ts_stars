@@ -30,7 +30,7 @@ function App() {
       <header className="App-header">
           <Search/>
       </header>
-        <main>
+        <main className='Main-container'>
             <CardsList reposList={reposList} />
         </main>
     </div>
