@@ -3,22 +3,7 @@ import Search from "./Components/Search/Search";
 import CardsList from "./Components/CardsList/CardsList";
 import './App.css';
 import {searchResult} from "./type";
-
-async function fetchData(searchQuery: string = 'TS'): Promise<searchResult> {
-
-    let params = new URLSearchParams({
-        language: "TS",
-        sort: "stars",
-        order: "desc",
-    });
-
-    params.append("q", searchQuery);
-
-    const response = await fetch(
-        `https://api.github.com/search/repositories?${params}`
-    );
-    return response.json();
-}
+import {getRepositoryList} from "./api/getRepositoryList";
 
 export const SearchContext = createContext({
     searchQuery: "TS", setSearchQuery: (searchQuery: string) => {
@@ -29,7 +14,7 @@ function App() {
     const [reposList, setReposList] = React.useState<searchResult | undefined>(undefined)
     const [searchQuery, setSearchQuery] = React.useState("TS")
     useEffect(() => {
-        if(searchQuery)fetchData(searchQuery).then((response) => setReposList(response));
+        if(searchQuery)getRepositoryList(searchQuery).then((response) => setReposList(response));
     }, [searchQuery]);
 
     return (
