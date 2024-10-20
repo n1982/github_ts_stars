@@ -1,16 +1,27 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {InputAdornment, TextField} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import {SearchContext} from "../../App";
+import {useDebounce} from "use-debounce";
 
 import './Search.css'
-import {SearchContext} from "../../App";
 
 const Search = () => {
     const {searchQuery, setSearchQuery} = useContext(SearchContext);
+    const [inputValue, setInputValue] = React.useState(searchQuery);
+    const [debouncedValue] = useDebounce(inputValue, 500);
+
+    useEffect(() => {
+        setSearchQuery(debouncedValue);
+    }, [debouncedValue]);
+
+    const handleTextFieldChange = (value: string) => {
+        setInputValue(value)
+    }
 
     return (
         <TextField
-           className='Search-field'
+            className='Search-field'
             slotProps={{
                 input: {
                     startAdornment: (
@@ -23,8 +34,8 @@ const Search = () => {
             size={'small'}
             placeholder={'Поиск...'}
             variant="standard"
-           value={searchQuery}
-           onChange={(e) => setSearchQuery(e.target.value)}
+            value={inputValue}
+            onChange={(e) => handleTextFieldChange(e.target.value)}
         />
 
 
