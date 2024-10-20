@@ -4,14 +4,16 @@ import CardsList from "./Components/CardsList/CardsList";
 import './App.css';
 import {searchResult} from "./type";
 
-async function fetchData(): Promise<searchResult> {
+async function fetchData(searchQuery: string ='TS'): Promise<searchResult> {
 
-    const params = new URLSearchParams({
-        q: "TS",
-        language: "TypeScript",
+    let params = new URLSearchParams({
+        language: "TS",
         sort: "stars",
         order: "desc",
-    }).toString();
+    });
+
+    params.append("q", searchQuery);
+
     const response = await fetch(
         `https://api.github.com/search/repositories?${params}`
     );
