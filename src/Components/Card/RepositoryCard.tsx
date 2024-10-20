@@ -24,8 +24,8 @@ const RepositoryCard = ({repository}: ICardProps) => {
                         {repository.stargazers_count}
                     </div>}
                 />
-                <CardContent>
-                    <Typography variant="body2">{repository.description}</Typography>
+                <CardContent className='Card-content-container'>
+                    <Typography className={'Card-content'} >{repository.description}</Typography>
                 </CardContent>
             </Card>
         </Grid>
