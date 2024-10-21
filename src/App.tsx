@@ -4,7 +4,7 @@ import Header from "./Components/Header/Header";
 import './App.css';
 
 export const AppContext = createContext({
-    searchQuery: "TS",
+    searchQuery: "",
     totalFound: 0,
     currentPage: 1,
     setSearchQuery: (searchQuery: string) => {
@@ -17,7 +17,7 @@ export const AppContext = createContext({
 
 
 function App() {
-    const [searchQuery, setSearchQuery] = React.useState("TS")
+    const [searchQuery, setSearchQuery] = React.useState('')
     const [currentPage, setCurrentPage] = React.useState(1);
     const [totalFound, setTotalFound] = React.useState(0);
 
