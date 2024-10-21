@@ -1,6 +1,6 @@
 import {searchResult} from "../type";
 
-export async function getRepositoryList(searchQuery: string = 'TS', page:string| number): Promise<searchResult> {
+export async function getRepositoryListApi(searchQuery: string = 'TS', page:string| number): Promise<searchResult> {
 
     let params = new URLSearchParams({
         language: "TS",
