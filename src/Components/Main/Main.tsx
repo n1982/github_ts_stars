@@ -13,12 +13,6 @@ const Main = () => {
     const [reposList, setReposList] = React.useState<IRepository[] | []>([])
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>
 
-    useObserver({
-        wrapperRef: null,
-        triggerRef: triggerRef,
-        callback: () => console.log('->callback')
-
-    })
     useEffect(() => {
         if (searchQuery) getRepositoryList(searchQuery, currentPage)
             .then((response) => {
@@ -26,6 +20,20 @@ const Main = () => {
                 setTotalFound(response.total_count)
             });
     }, [searchQuery, currentPage]);
+
+    useObserver({
+        wrapperRef: null,
+        triggerRef: triggerRef,
+        callback: () => {
+            if (searchQuery) getRepositoryList(searchQuery, currentPage+1)
+                .then((response) => {
+                    setReposList((prevState)=>[...prevState,...response.items])
+                    setTotalFound(response.total_count)
+                });
+        }
+
+    })
+
 
     return (
         <main className='App-main'>

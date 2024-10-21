@@ -22,6 +22,7 @@ function App() {
     const [totalFound, setTotalFound] = React.useState(0);
 
 
+
     return (
         <AppContext.Provider
             value={{searchQuery, setSearchQuery, currentPage, setCurrentPage, totalFound, setTotalFound}}>
