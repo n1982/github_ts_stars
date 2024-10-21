@@ -1,13 +1,13 @@
 import React, {useContext, useEffect} from 'react';
 import {InputAdornment, TextField} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import {SearchContext} from "../../App";
+import {AppContext} from "../../App";
 import {useDebounce} from "use-debounce";
 
 import './Search.css'
 
 const Search = () => {
-    const {searchQuery, setSearchQuery} = useContext(SearchContext);
+    const {searchQuery, setSearchQuery} = useContext(AppContext);
     const [inputValue, setInputValue] = React.useState(searchQuery);
     const [debouncedValue] = useDebounce(inputValue, 500);
 

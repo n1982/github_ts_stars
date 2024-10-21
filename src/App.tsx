@@ -1,33 +1,36 @@
-import React, {createContext, useEffect} from 'react';
-import Search from "./Components/Search/Search";
-import CardsList from "./Components/CardsList/CardsList";
+import React, {createContext} from 'react';
+import Main from "./Components/Main/Main";
+import Header from "./Components/Header/Header";
 import './App.css';
-import {searchResult} from "./type";
-import {getRepositoryList} from "./api/getRepositoryList";
 
-export const SearchContext = createContext({
-    searchQuery: "TS", setSearchQuery: (searchQuery: string) => {
+export const AppContext = createContext({
+    searchQuery: "TS",
+    totalFound: 0,
+    currentPage: 1,
+    setSearchQuery: (searchQuery: string) => {
+    },
+    setCurrentPage: (page: number) => {
+    },
+    setTotalFound: (page: number) => {
     }
 })
 
+
 function App() {
-    const [reposList, setReposList] = React.useState<searchResult | undefined>(undefined)
     const [searchQuery, setSearchQuery] = React.useState("TS")
-    useEffect(() => {
-        if(searchQuery)getRepositoryList(searchQuery).then((response) => setReposList(response));
-    }, [searchQuery]);
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [totalFound, setTotalFound] = React.useState(0);
+
 
     return (
-        <SearchContext.Provider value={{searchQuery, setSearchQuery}}>
+        <AppContext.Provider
+            value={{searchQuery, setSearchQuery, currentPage, setCurrentPage, totalFound, setTotalFound}}>
+
             <div className="App">
-                <header className="App-header">
-                    <Search/>
-                </header>
-                <main className='Main-container'>
-                    <CardsList reposList={reposList}/>
-                </main>
+                <Header/>
+                <Main/>
             </div>
-        </SearchContext.Provider>
+        </AppContext.Provider>
     );
 }
 
