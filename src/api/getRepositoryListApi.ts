@@ -1,6 +1,6 @@
 import {searchResult} from "../type";
 
-export async function getRepositoryListApi(searchQuery: string = 'TS', page:string| number): Promise<searchResult> {
+export async function getRepositoryListApi(searchQuery: string = 'TS', page:string| number, abortController: AbortController | undefined=undefined): Promise<searchResult> {
 
     let params = new URLSearchParams({
         language: "TS",
@@ -13,7 +13,10 @@ export async function getRepositoryListApi(searchQuery: string = 'TS', page:stri
     params.append("page", page.toString());
 
     const response = await fetch(
-        `https://api.github.com/search/repositories?${params}`
+        `https://api.github.com/search/repositories?${params}`,{
+            method: "GET",
+            signal:abortController?.signal
+        }
     );
     return response.json();
 }

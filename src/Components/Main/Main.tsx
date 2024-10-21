@@ -15,10 +15,11 @@ const Main = () => {
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>
 
     useEffect(() => {
+        const abortController = new AbortController()
         if (searchQuery) {
             setLoading(true);
             setReposList([])
-            getRepositoryListApi(searchQuery, currentPage)
+            getRepositoryListApi(searchQuery, currentPage, abortController)
                 .then((response) => {
                     setLoading(false);
                     setReposList(response.items)
