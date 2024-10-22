@@ -4,7 +4,7 @@ import {Card, CardContent, CardHeader, Skeleton} from "@mui/material";
 
 
 const LoadingSkeleton = () => {
-    const skeletonsCount = Array.from(Array(12).keys())
+    const skeletonsCount = Array.from(Array(32).keys())
     return (
         <Grid container spacing={2} alignItems="stretch">
             {skeletonsCount.map(() => <Grid size={{xs: 6, md: 4, lg: 3}}>

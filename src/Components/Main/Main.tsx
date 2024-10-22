@@ -23,7 +23,10 @@ const Main = () => {
                     setLoading(false);
                     setReposList(response.items)
                     setTotalFound(response.total_count)
-                })
+                }).catch(error=> {
+                setLoading(false);
+                console.log(error)
+            })
         }
     }, [searchQuery]);
 
@@ -35,17 +38,23 @@ const Main = () => {
         triggerRef: triggerRef,
         callback: () => {
             if (searchQuery && currentPage) {
+                setLoading(true);
                 getRepositoryListApi(searchQuery, currentPage + 1)
                     .then((response) => {
                         if(response.items.length > 0) {
+                            setLoading(false);
                             setReposList( [...reposList, ...response.items])
                             setTotalFound(response.total_count)
                             setCurrentPage(currentPage + 1)
                         } else {
+                            setLoading(false);
                             setCurrentPage(0)
                         }
 
-                    });
+                    }).catch(error=> {
+                    setLoading(false);
+                        console.log(error)
+                });
             }
         }
 
@@ -57,10 +66,11 @@ const Main = () => {
             {foundRepo &&
                 <>
                     <CardsList reposList={reposList}/>
+                    {foundRepo && loading && <LoadingSkeleton/>}
                     <div ref={triggerRef}/>
                 </>
             }
-            {loading && <LoadingSkeleton/>}
+            {!foundRepo && loading && <LoadingSkeleton/>}
             {notFoundRepo && <NotFound/>}
             {!searchQuery && <EmptyRequest/>}
         </main>

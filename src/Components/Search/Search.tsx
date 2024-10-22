@@ -12,6 +12,7 @@ const Search = () => {
     const [debouncedValue] = useDebounce(inputValue, 500);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setCurrentPage(1)
         setSearchQuery(debouncedValue);
     }, [debouncedValue]);
