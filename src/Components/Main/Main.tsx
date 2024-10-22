@@ -34,12 +34,17 @@ const Main = () => {
         wrapperRef: null,
         triggerRef: triggerRef,
         callback: () => {
-            if (searchQuery) {
+            if (searchQuery && currentPage) {
                 getRepositoryListApi(searchQuery, currentPage + 1)
                     .then((response) => {
-                        setReposList( [...reposList, ...response.items])
-                        setTotalFound(response.total_count)
-                        setCurrentPage(currentPage + 1)
+                        if(response.items.length > 0) {
+                            setReposList( [...reposList, ...response.items])
+                            setTotalFound(response.total_count)
+                            setCurrentPage(currentPage + 1)
+                        } else {
+                            setCurrentPage(0)
+                        }
+
                     });
             }
         }

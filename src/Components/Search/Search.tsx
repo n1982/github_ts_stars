@@ -13,7 +13,7 @@ const Search = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-       setSearchQuery(debouncedValue);
+        setSearchQuery(debouncedValue);
     }, [debouncedValue]);
 
     const handleTextFieldChange = (value: string) => {
