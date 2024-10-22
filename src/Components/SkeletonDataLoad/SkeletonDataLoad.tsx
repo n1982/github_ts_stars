@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid2";
 import {Card, CardContent, CardHeader, Skeleton} from "@mui/material";
 
 
-const LoadingSkeleton = () => {
+const SkeletonDataLoad = () => {
     const skeletonsCount = Array.from(Array(32).keys())
     return (
         <Grid container spacing={2} alignItems="stretch">
@@ -30,4 +30,4 @@ const LoadingSkeleton = () => {
     );
 };
 
-export default LoadingSkeleton;
+export default SkeletonDataLoad;
