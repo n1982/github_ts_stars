@@ -41,6 +41,7 @@ const Main = () => {
                 }).catch(error => {
                 setApiError(true)
                 setLoading(false);
+                setTotalFound(0)
                 setReposList([])
                 setSearchQuery('')
             })
@@ -64,7 +65,6 @@ const Main = () => {
                         if (response.items.length > 0) {
                             setLoading(false);
                             setReposList([...reposList, ...response.items])
-                            setTotalFound(response.total_count)
                             setCurrentPage(currentPage + 1)
                         } else {
                             setLoading(false);
@@ -74,6 +74,7 @@ const Main = () => {
                     }).catch(error => {
                     setApiError(true)
                     setLoading(false);
+                    setTotalFound(0)
                     setReposList([])
                     setSearchQuery('')
                 });
