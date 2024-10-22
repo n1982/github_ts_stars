@@ -1,12 +1,14 @@
 import React, {MutableRefObject, useContext, useEffect, useRef} from 'react';
-import {getRepositoryListApi} from "../../api/getRepositoryListApi";
 import {AppContext} from "../../App";
 import {useObserver} from "../../hooks/useObserver";
 import CardsList from "../CardsList/CardsList";
 import EmptySearchRequest from "../EmptySearchRequest/EmptySearchRequest";
 import NotFound from "../NotFound/NotFound";
-import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
+import SkeletonDataLoad from "../SkeletonDataLoad/SkeletonDataLoad";
 import SnackbarError from "../SnackbarError/SnackbarError";
+
+import {getRepositoryListApi} from "../../api/getRepositoryListApi";
+
 import './Main.css'
 
 const Main = () => {
@@ -47,6 +49,9 @@ const Main = () => {
 
     const notFoundRepo = !loading && !apiError && searchQuery && reposList?.length === 0
     const foundRepo = searchQuery && reposList?.length > 0
+    const showObserverTrigger = !apiError && !loading
+    const showFirstLoadingSkeleton = !foundRepo && loading
+    const showAdditionalLoadingSkeleton = foundRepo && loading
 
     useObserver({
         wrapperRef: null,
@@ -83,11 +88,11 @@ const Main = () => {
             {foundRepo &&
                 <>
                     <CardsList reposList={reposList}/>
-                    {foundRepo && loading && <LoadingSkeleton/>}
-                    {!apiError && !loading && <div ref={triggerRef}/>}
+                    {showAdditionalLoadingSkeleton && <SkeletonDataLoad/>}
+                    { showObserverTrigger && <div ref={triggerRef}/>}
                 </>
             }
-            {!foundRepo && loading && <LoadingSkeleton/>}
+            {showFirstLoadingSkeleton && <SkeletonDataLoad/>}
             {notFoundRepo && <NotFound/>}
             {!searchQuery && <EmptySearchRequest/>}
             <SnackbarError/>
