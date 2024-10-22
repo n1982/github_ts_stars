@@ -7,7 +7,7 @@ const LoadingSkeleton = () => {
     const skeletonsCount = Array.from(Array(32).keys())
     return (
         <Grid container spacing={2} alignItems="stretch">
-            {skeletonsCount.map(() => <Grid size={{xs: 6, md: 4, lg: 3}}>
+            {skeletonsCount.map((_, id) => <Grid key={id} size={{xs: 6, md: 4, lg: 3}}>
 
                 <Card className='Card-container'>
                     <CardHeader
