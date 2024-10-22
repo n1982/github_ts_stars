@@ -7,12 +7,13 @@ import {useDebounce} from "use-debounce";
 import './Search.css'
 
 const Search = () => {
-    const {searchQuery, setSearchQuery} = useContext(AppContext);
+    const {searchQuery, setSearchQuery, setCurrentPage} = useContext(AppContext);
     const [inputValue, setInputValue] = React.useState(searchQuery);
     const [debouncedValue] = useDebounce(inputValue, 500);
 
     useEffect(() => {
-        setSearchQuery(debouncedValue);
+        setCurrentPage(1)
+       setSearchQuery(debouncedValue);
     }, [debouncedValue]);
 
     const handleTextFieldChange = (value: string) => {
