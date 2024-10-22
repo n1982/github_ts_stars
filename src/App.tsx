@@ -10,6 +10,8 @@ interface appContext {
     currentPage: number;
     loading: boolean;
     reposList: IRepository[];
+    apiError: boolean;
+    setApiError: (error: boolean) => void;
     setReposList: (reposList: IRepository[]) => void
     setSearchQuery: (searchQuery: string) => void;
     setCurrentPage: (page: number) => void;
@@ -23,6 +25,10 @@ export const AppContext = createContext<appContext>({
     currentPage: 1,
     loading: false,
     reposList: [],
+    apiError: false,
+    setApiError: ()=>{
+
+    },
     setReposList: () => {
     },
     setSearchQuery: () => {
@@ -42,6 +48,7 @@ function App() {
     const [totalFound, setTotalFound] = React.useState(0);
     const [loading, setLoading] = React.useState(false);
     const [reposList, setReposList] = React.useState<IRepository[]>([])
+    const [apiError, setApiError] = React.useState(false)
     const contextValue = {
         reposList,
         setReposList,
@@ -52,7 +59,9 @@ function App() {
         totalFound,
         setTotalFound,
         loading,
-        setLoading
+        setLoading,
+        apiError,
+        setApiError,
     }
 
 

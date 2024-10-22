@@ -6,10 +6,23 @@ import CardsList from "../CardsList/CardsList";
 import EmptyRequest from "../EmptyRequest/EmptyRequest";
 import NotFound from "../NotFound/NotFound";
 import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
+import SnackbarError from "../SnackbarError/SnackbarError";
 import './Main.css'
 
 const Main = () => {
-    const {searchQuery, currentPage, setCurrentPage, reposList, setReposList, setTotalFound, loading, setLoading} = useContext(AppContext);
+    const {
+        searchQuery,
+        currentPage,
+        setCurrentPage,
+        reposList,
+        setReposList,
+        setTotalFound,
+        loading,
+        setLoading,
+        apiError,
+        setApiError,
+        setSearchQuery
+    } = useContext(AppContext);
 
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>
 
@@ -23,27 +36,29 @@ const Main = () => {
                     setLoading(false);
                     setReposList(response.items)
                     setTotalFound(response.total_count)
-                }).catch(error=> {
+                }).catch(error => {
+                setApiError(true)
                 setLoading(false);
-                console.log(error)
+                setReposList([])
+                setSearchQuery('')
             })
         }
     }, [searchQuery]);
 
-    const notFoundRepo = !loading && searchQuery && reposList?.length === 0
+    const notFoundRepo = !loading && !apiError && searchQuery && reposList?.length === 0
     const foundRepo = searchQuery && reposList?.length > 0
 
     useObserver({
         wrapperRef: null,
         triggerRef: triggerRef,
         callback: () => {
-            if (searchQuery && currentPage) {
+            if (searchQuery && currentPage && !apiError) {
                 setLoading(true);
                 getRepositoryListApi(searchQuery, currentPage + 1)
                     .then((response) => {
-                        if(response.items.length > 0) {
+                        if (response.items.length > 0) {
                             setLoading(false);
-                            setReposList( [...reposList, ...response.items])
+                            setReposList([...reposList, ...response.items])
                             setTotalFound(response.total_count)
                             setCurrentPage(currentPage + 1)
                         } else {
@@ -51,9 +66,11 @@ const Main = () => {
                             setCurrentPage(0)
                         }
 
-                    }).catch(error=> {
+                    }).catch(error => {
+                    setApiError(true)
                     setLoading(false);
-                        console.log(error)
+                    setReposList([])
+                    setSearchQuery('')
                 });
             }
         }
@@ -67,12 +84,13 @@ const Main = () => {
                 <>
                     <CardsList reposList={reposList}/>
                     {foundRepo && loading && <LoadingSkeleton/>}
-                    <div ref={triggerRef}/>
+                    {!apiError && <div ref={triggerRef}/>}
                 </>
             }
             {!foundRepo && loading && <LoadingSkeleton/>}
             {notFoundRepo && <NotFound/>}
             {!searchQuery && <EmptyRequest/>}
+            <SnackbarError/>
         </main>
     );
 };
