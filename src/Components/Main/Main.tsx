@@ -84,7 +84,7 @@ const Main = () => {
                 <>
                     <CardsList reposList={reposList}/>
                     {foundRepo && loading && <LoadingSkeleton/>}
-                    {!apiError && <div ref={triggerRef}/>}
+                    {!apiError && !loading && <div ref={triggerRef}/>}
                 </>
             }
             {!foundRepo && loading && <LoadingSkeleton/>}
