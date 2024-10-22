@@ -1,22 +1,13 @@
 import React, {useContext} from "react";
 import {AppContext} from "../../App";
-import Snackbar, {SnackbarCloseReason} from '@mui/material/Snackbar';
+import Snackbar from '@mui/material/Snackbar';
 import {Alert} from "@mui/material";
 
 
 export default function SnackbarError() {
-    const {
-        apiError,
-        setApiError,
-    } = useContext(AppContext);
+    const {apiError, setApiError} = useContext(AppContext);
 
-    const handleClose = (
-        event: React.SyntheticEvent | Event,
-        reason?: SnackbarCloseReason,
-    ) => {
-        if (reason === 'clickaway') {
-            setApiError(false);
-        }
+    const handleClose = () => {
         setApiError(false);
     };
 

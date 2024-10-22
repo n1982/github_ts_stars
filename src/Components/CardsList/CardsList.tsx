@@ -1,7 +1,8 @@
 import React from 'react';
+import type {IRepository} from "../../type";
+
 import Grid from "@mui/material/Grid2";
 import RepositoryCard from "../Card/RepositoryCard";
-import {IRepository} from "../../type";
 
 
 interface ICardListProps {

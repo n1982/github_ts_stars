@@ -1,8 +1,9 @@
 import React, {useContext, useEffect} from 'react';
+import {useDebounce} from "use-debounce";
+import {AppContext} from "../../App";
+
 import {InputAdornment, TextField} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import {AppContext} from "../../App";
-import {useDebounce} from "use-debounce";
 
 import './Search.css'
 
@@ -23,7 +24,7 @@ const Search = () => {
 
     return (
         <TextField
-            className='Search-field'
+            className='App-search-field'
             slotProps={{
                 input: {
                     startAdornment: (

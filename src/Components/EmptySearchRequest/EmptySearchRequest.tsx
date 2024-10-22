@@ -1,6 +1,8 @@
 import React from 'react';
-import './EmptySearchRequest.css'
+
 import {Typography} from "@mui/material";
+
+import './EmptySearchRequest.css'
 
 const EmptySearchRequest = () => {
     return (

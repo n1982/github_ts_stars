@@ -7,10 +7,3 @@ body{
   flex-direction: column;
   min-height: 100%;
 }
-
-
-
-
-.App-footer {
-  flex:0 0 auto
-}

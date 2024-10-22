@@ -1,12 +1,13 @@
 import React, {MutableRefObject, useContext, useEffect, useRef} from 'react';
 import {AppContext} from "../../App";
-import {useObserver} from "../../hooks/useObserver";
+
 import CardsList from "../CardsList/CardsList";
 import EmptySearchRequest from "../EmptySearchRequest/EmptySearchRequest";
 import NotFound from "../NotFound/NotFound";
 import SkeletonDataLoad from "../SkeletonDataLoad/SkeletonDataLoad";
 import SnackbarError from "../SnackbarError/SnackbarError";
 
+import {useObserver} from "../../hooks/useObserver";
 import {getRepositoryListApi} from "../../api/getRepositoryListApi";
 
 import './Main.css'
@@ -38,7 +39,7 @@ const Main = () => {
                     setLoading(false);
                     setReposList(response.items)
                     setTotalFound(response.total_count)
-                }).catch(error => {
+                }).catch(() => {
                 setApiError(true)
                 setLoading(false);
                 setTotalFound(0)
@@ -71,7 +72,7 @@ const Main = () => {
                             setCurrentPage(0)
                         }
 
-                    }).catch(error => {
+                    }).catch(() => {
                     setApiError(true)
                     setLoading(false);
                     setTotalFound(0)

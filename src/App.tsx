@@ -1,8 +1,10 @@
 import React, {createContext} from 'react';
+import {IRepository} from "./type";
+
 import Main from "./Components/Main/Main";
 import Header from "./Components/Header/Header";
+
 import './App.css';
-import {IRepository} from "./type";
 
 interface appContext {
     searchQuery: string;

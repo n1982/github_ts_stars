@@ -1,12 +1,15 @@
 import React from 'react';
+
 import Grid from "@mui/material/Grid2";
 import {Card, CardContent, CardHeader, Skeleton} from "@mui/material";
+
+import './SkeletonDataLoad.css'
 
 
 const SkeletonDataLoad = () => {
     const skeletonsCount = Array.from(Array(32).keys())
     return (
-        <Grid container spacing={2} alignItems="stretch">
+        <Grid className='App-skeleton' container spacing={2} alignItems="stretch">
             {skeletonsCount.map((_, id) => <Grid key={id} size={{xs: 6, md: 4, lg: 3}}>
 
                 <Card className='Card-container'>

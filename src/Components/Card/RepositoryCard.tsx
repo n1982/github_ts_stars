@@ -1,5 +1,6 @@
 import React from 'react';
-import {IRepository} from "../../type";
+import type {IRepository} from "../../type";
+
 import {Avatar, Card, CardContent, CardHeader, Typography} from "@mui/material";
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import Grid from "@mui/material/Grid2";
