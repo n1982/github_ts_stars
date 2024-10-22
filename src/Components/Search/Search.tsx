@@ -8,12 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import './Search.css'
 
 const Search = () => {
-    const {searchQuery, setSearchQuery, setCurrentPage} = useContext(AppContext);
+    const {searchQuery, setSearchQuery, setCurrentPage,setTotalFound} = useContext(AppContext);
     const [inputValue, setInputValue] = React.useState(searchQuery);
     const [debouncedValue] = useDebounce(inputValue, 500);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTotalFound(0)
         setCurrentPage(1)
         setSearchQuery(debouncedValue);
     }, [debouncedValue]);
