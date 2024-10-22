@@ -18,6 +18,10 @@ export async function getRepositoryListApi(searchQuery: string = 'TS', page:stri
             signal:abortController?.signal
         }
     );
-    return response.json();
+    if (response.ok) {return response.json()}else {
+       throw new Error(response.status.toString());
+
+    };
+
 }
 
