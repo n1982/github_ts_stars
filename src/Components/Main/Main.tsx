@@ -1,6 +1,5 @@
 import React, {MutableRefObject, useContext, useEffect, useRef} from 'react';
 import {getRepositoryListApi} from "../../api/getRepositoryListApi";
-import {IRepository} from "../../type";
 import {AppContext} from "../../App";
 import {useObserver} from "../../hooks/useObserver";
 import CardsList from "../CardsList/CardsList";
@@ -10,8 +9,8 @@ import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 import './Main.css'
 
 const Main = () => {
-    const {searchQuery, currentPage, setTotalFound, loading, setLoading} = useContext(AppContext);
-    const [reposList, setReposList] = React.useState<IRepository[] | []>([])
+    const {searchQuery, currentPage, setCurrentPage, reposList, setReposList, setTotalFound, loading, setLoading} = useContext(AppContext);
+
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const Main = () => {
                     setTotalFound(response.total_count)
                 })
         }
-    }, [searchQuery, currentPage]);
+    }, [searchQuery]);
 
     const notFoundRepo = !loading && searchQuery && reposList?.length === 0
     const foundRepo = searchQuery && reposList?.length > 0
@@ -36,12 +35,11 @@ const Main = () => {
         triggerRef: triggerRef,
         callback: () => {
             if (searchQuery) {
-                setLoading(true);
                 getRepositoryListApi(searchQuery, currentPage + 1)
                     .then((response) => {
-                        setLoading(false);
-                        setReposList((prevState) => [...prevState, ...response.items])
+                        setReposList( [...reposList, ...response.items])
                         setTotalFound(response.total_count)
+                        setCurrentPage(currentPage + 1)
                     });
             }
         }
