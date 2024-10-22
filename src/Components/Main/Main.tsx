@@ -3,7 +3,7 @@ import {getRepositoryListApi} from "../../api/getRepositoryListApi";
 import {AppContext} from "../../App";
 import {useObserver} from "../../hooks/useObserver";
 import CardsList from "../CardsList/CardsList";
-import EmptyRequest from "../EmptyRequest/EmptyRequest";
+import EmptySearchRequest from "../EmptySearchRequest/EmptySearchRequest";
 import NotFound from "../NotFound/NotFound";
 import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 import SnackbarError from "../SnackbarError/SnackbarError";
@@ -89,7 +89,7 @@ const Main = () => {
             }
             {!foundRepo && loading && <LoadingSkeleton/>}
             {notFoundRepo && <NotFound/>}
-            {!searchQuery && <EmptyRequest/>}
+            {!searchQuery && <EmptySearchRequest/>}
             <SnackbarError/>
         </main>
     );
